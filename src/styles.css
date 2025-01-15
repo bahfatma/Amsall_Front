@@ -232,3 +232,61 @@ button.btn-success:hover {
     text-decoration: underline;
     margin-left: 5px;
 }
+
+.error-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.text-danger {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.error-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    color: red;
+    font-size: 14px;
+}
+
+.text-danger {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.form-box {
+    background-color: #fff;
+    width: 40%;
+    margin: 40px auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

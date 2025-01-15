@@ -1,29 +1,4 @@
 <div class="container">
-    <!-- Barre de recherche -->
-    <div class="search-bar">
-        <input type="text" placeholder="Rechercher..." class="search-input" />
-        <button class="btn btn-primary">Rechercher</button>
-    </div>
-
-    <!-- Menu horizontal -->
-    <nav class="menu">
-        <ul>
-            <li><a href="#">Chaussures</a></li>
-            <li><a href="#">Pantalons</a></li>
-            <li><a href="#">Chemises</a></li>
-            <li class="dropdown">
-                <a href="#">Accessoires</a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Ceintures</a></li>
-                    <li><a href="#">Casquettes</a></li>
-                    <li><a href="#">Sacoches</a></li>
-                    <li><a href="#">Bonnets</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-
-    <!-- Formulaire dans une boîte centrée -->
     <div class="form-box">
         <h2>Créer un compte</h2>
 
@@ -43,6 +18,10 @@
             <div class="form-group">
                 <label>Mot de passe:</label>
                 <input type="password" [(ngModel)]="user.passWord" name="passWord" class="form-control" required />
+                <!-- Affiche les erreurs -->
+                <ul *ngIf="isSubmitted && passwordErrors.length > 0" class="error-list">
+                    <li *ngFor="let error of passwordErrors" class="text-danger">{{ error }}</li>
+                </ul>
             </div>
             <div class="form-group">
                 <label>Téléphone:</label>
