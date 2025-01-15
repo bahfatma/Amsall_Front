@@ -17,8 +17,14 @@ export class RegisterComponent {
 
   passwordErrors: string[] = []; 
   isSubmitted: boolean = false;
+  emailError: string = '';
 
   constructor(private userService: UserService) {}
+
+  validateEmail(email: string): boolean {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailPattern.test(email);
+  }
 
   validatePassword(password: string): string[] {
     const errors: string[] = [];
@@ -48,9 +54,13 @@ export class RegisterComponent {
 
   onSubmit() {
     this.isSubmitted = true; // Marque le formulaire comme soumis
-    this.passwordErrors = this.validatePassword(this.user.passWord); 
+    this.passwordErrors = this.validatePassword(this.user.passWord);
+    this.emailError = ''; 
 
-    if (this.passwordErrors.length === 0) {
+    if (!this.validateEmail(this.user.email)) {
+      this.emailError = 'L\'adresse e-mail n\'est pas valide.';
+    }
+    if (this.passwordErrors.length === 0 && !this.emailError) {
       this.userService.addUser(this.user).subscribe(
         response => {
           alert('Utilisateur créé avec succès!');
