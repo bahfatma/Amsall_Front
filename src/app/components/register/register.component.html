@@ -1,4 +1,27 @@
 <div class="container">
+    <!-- Barre de recherche -->
+    <div class="search-bar">
+        <input type="text" placeholder="Rechercher..." class="search-input" />
+        <button class="btn btn-primary">Rechercher</button>
+    </div>
+
+    <!-- Menu horizontal -->
+    <nav class="menu">
+        <ul>
+            <li><a href="#">Chaussures</a></li>
+            <li><a href="#">Pantalons</a></li>
+            <li><a href="#">Chemises</a></li>
+            <li class="dropdown">
+                <a href="#">Accessoires</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Ceintures</a></li>
+                    <li><a href="#">Casquettes</a></li>
+                    <li><a href="#">Sacoches</a></li>
+                    <li><a href="#">Bonnets</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
     <div class="form-box">
         <h2>Créer un compte</h2>
 
@@ -32,6 +55,11 @@
                 <input type="text" [(ngModel)]="user.phoneNumber" name="phoneNumber" class="form-control" required />
             </div>
             <button type="submit" class="btn btn-success">S'inscrire</button>
+
+            <div *ngIf="emailExistsError" class="text-danger mt-3">
+                {{ emailExistsError }}
+                <a routerLink="/login" class="text-primary">Se connecter</a>
+            </div>
         </form>
     </div>
 </div>

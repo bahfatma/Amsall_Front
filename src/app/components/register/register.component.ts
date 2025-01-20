@@ -18,6 +18,7 @@ export class RegisterComponent {
   passwordErrors: string[] = []; 
   isSubmitted: boolean = false;
   emailError: string = '';
+  emailExistsError: string = '';
 
   constructor(private userService: UserService) {}
 
@@ -56,6 +57,8 @@ export class RegisterComponent {
     this.isSubmitted = true; // Marque le formulaire comme soumis
     this.passwordErrors = this.validatePassword(this.user.passWord);
     this.emailError = ''; 
+    this.emailExistsError = '';
+
 
     if (!this.validateEmail(this.user.email)) {
       this.emailError = 'L\'adresse e-mail n\'est pas valide.';
@@ -66,8 +69,11 @@ export class RegisterComponent {
           alert('Utilisateur créé avec succès!');
         },
         error => {
-          console.error(error);
-          alert('Erreur lors de la création de l\'utilisateur.');
+          if (error.status === 409) { // Vérifie si l'erreur est 409 (Conflict)
+            this.emailExistsError = 'Cette adresse e-mail existe déjà. Veuillez vous connecter.';
+          } else {
+            alert('Erreur lors de la création de l\'utilisateur.');
+          }
         }
       );
     }
