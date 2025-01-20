@@ -16,21 +16,30 @@ export class LoginComponent {
 
   constructor(private userService: UserService, private router: Router) {}
 
-   onLogin() {
-    this.userService.loginUser(this.user).subscribe(
-      (response: any) => {
-        // Stocker le token et rediriger
-        localStorage.setItem('authToken', response.token);
-        this.router.navigate(['/dashboard']);
-      },
-      error => {
-        if (error.status === 401) {
-          this.errorMessage = 'Mot de passe incorrect. Mot de passe oublié ?';
-        } else if (error.status === 404) {
-          this.errorMessage = 'Adresse e-mail non trouvée.';
+  onLogin() {
+    this.userService.verifyEmail(this.user.email).subscribe(
+      (emailExists: boolean) => {
+        if (!emailExists) {
+          this.errorMessage = 'Adresse e-mail introuvable. Veuillez vérifier ou vous inscrire.';
         } else {
-          this.errorMessage = 'Une erreur est survenue. Veuillez réessayer.';
+          this.userService.loginUser(this.user).subscribe(
+            (response: any) => {
+              // Stocker le token et rediriger
+              localStorage.setItem('authToken', response.token);
+              this.router.navigate(['/dashboard']);
+            },
+            error => {
+              if (error.status === 401) {
+                this.errorMessage = 'Mot de passe incorrect.';
+              } else {
+                this.errorMessage = 'Une erreur est survenue. Veuillez réessayer.';
+              }
+            }
+          );
         }
+      },
+      () => {
+        this.errorMessage = 'Une erreur est survenue. Veuillez réessayer.';
       }
     );
   }
